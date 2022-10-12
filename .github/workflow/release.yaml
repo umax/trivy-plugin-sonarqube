@@ -1,0 +1,22 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: alpine-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Compress
+        run: tar -zcvf trivy-sonarqube.tar.gz sonarqube.py plugin.yaml LICENSE
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            trivy-sonarqube.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
