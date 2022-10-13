@@ -18,7 +18,7 @@ if not os.path.exists(fname):
 
 issues = []
 report = json.load(open(fname))
-for result in report['Results']:
+for result in report.get('Results', []):
     for vuln in result['Vulnerabilities']:
         issues.append({
             'engineId': 'Trivy',
