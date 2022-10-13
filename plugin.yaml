@@ -1,10 +1,10 @@
 name: "sonarqube"
 repository: github.com/umax/trivy-plugin-sonarqube
-version: "0.1.0"
+version: "0.1.1"
 usage: Convert Trivy JSON report to SonarQube format
 description: |-
   A Trivy plugin that converts JSON report to SonarQube compatible format (https://docs.sonarqube.org/latest/analysis/generic-issue/).
   Usage: trivy sonarqube TRIVY-REPORT > SONARQUBE-REPORT
 platforms:
-  - uri: https://github.com/umax/trivy-plugin-sonarqube/releases/download/v0.1.0/trivy-sonarqube.tar.gz
+  - uri: https://github.com/umax/trivy-plugin-sonarqube/releases/download/v0.1.1/trivy-sonarqube.tar.gz
     bin: sonarqube.py
