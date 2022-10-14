@@ -30,6 +30,11 @@ convert Trivy report to SonarQube compatible report:
 $ trivy sonarqube trivy.json > sonarqube.json
 ```
 
+redefine `filePath` field of SonarQube result. For example, if you scan Dockerfile with `trivy image` command, `filePath` field will contain url of docker image instead of file name. As result, SonarQube will skip this report. `--filePath` option allows you to set Dockefile name:
+```
+$ trivy sonarqube trivy.json -- filePath=Dockerfile > sonarqube.json
+```
+
 ## GitLab CI
 
 Here is a small example how to use this plugin in GitLab CI to post Trivy results to SonarQube.

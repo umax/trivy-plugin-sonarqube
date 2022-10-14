@@ -4,6 +4,7 @@ import json
 import os
 import sys
 
+LOG_PREFIX = '[trivy][plugins][sonarqube]'
 TRIVY_SONARQUBE_SEVERITY = {
     'UNKNOWN': 'INFO',
     'LOW': 'MINOR',
@@ -14,11 +15,16 @@ TRIVY_SONARQUBE_SEVERITY = {
 
 fname = sys.argv[1]
 if not os.path.exists(fname):
-    sys.exit('file not found: "%s"' % fname)
+    sys.exit('%s file not found: %s' % (LOG_PREFIX, fname))
+
+arg_filePath = None
+for arg in sys.argv[2:]:
+    if 'filePath' in arg:
+        arg_filePath = arg.split('=')[-1].strip()
 
 issues = []
 report = json.load(open(fname))
-for result in report.get('Results', []):
+for result in report['Results']:
     for vuln in result['Vulnerabilities']:
         issues.append({
             'engineId': 'Trivy',
@@ -27,7 +33,7 @@ for result in report.get('Results', []):
             'severity': TRIVY_SONARQUBE_SEVERITY[vuln['Severity']],
             'primaryLocation': {
                 'message': vuln['Description'],
-                'filePath': result['Target'],
+                'filePath': arg_filePath or result['Target'],
             }
         })
 
