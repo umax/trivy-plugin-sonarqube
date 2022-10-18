@@ -26,15 +26,18 @@ issues = []
 report = json.load(open(fname))
 for result in report.get('Results', []):
     for vuln in result['Vulnerabilities']:
-        issues.append({
-            'engineId': 'Trivy',
-            'ruleId': vuln['VulnerabilityID'],
-            'type': 'VULNERABILITY',
-            'severity': TRIVY_SONARQUBE_SEVERITY[vuln['Severity']],
-            'primaryLocation': {
-                'message': vuln['Description'],
-                'filePath': arg_filePath or result['Target'],
-            }
-        })
+        try:
+            issues.append({
+                'engineId': 'Trivy',
+                'ruleId': vuln['VulnerabilityID'],
+                'type': 'VULNERABILITY',
+                'severity': TRIVY_SONARQUBE_SEVERITY[vuln['Severity']],
+                'primaryLocation': {
+                    'message': vuln['Description'],
+                    'filePath': arg_filePath or result['Target'],
+                }
+            })
+        except KeyError:
+            continue
 
 print(json.dumps({'issues': issues}, indent=2))
