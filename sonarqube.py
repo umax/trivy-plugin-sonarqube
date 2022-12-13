@@ -25,7 +25,7 @@ for arg in sys.argv[2:]:
 issues = []
 report = json.load(open(fname))
 for result in report.get('Results', []):
-    for vuln in result['Vulnerabilities']:
+    for vuln in result.get('Vulnerabilities', []):
         try:
             issues.append({
                 'engineId': 'Trivy',

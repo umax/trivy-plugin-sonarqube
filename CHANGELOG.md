@@ -1,3 +1,8 @@
+## v0.2.2 (2022-12-13)
+
+- Take into account missing `Vulnerabilities` field in Trivy report.
+
+
 ## v0.2.1 (2022-10-18)
 
 - Take into account missing fields in Trivy report.
