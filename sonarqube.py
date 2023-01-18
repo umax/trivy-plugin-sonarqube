@@ -23,33 +23,29 @@ def parse_trivy_report(report):
     for result in report.get("Results", []):
         for vuln in result.get("Vulnerabilities", []):
             try:
-                result["Target"]
+                vuln["Target"] = result["Target"]
                 for key in ("VulnerabilityID", "Severity", "Description"):
                     vuln[key]
             except KeyError:
                 continue
 
-            vuln["Target"] = result["Target"]
             yield vuln
 
 
 def make_sonar_issues(vulnerabilities, file_path=None):
-    issues = []
-    for vuln in vulnerabilities:
-        issues.append(
-            {
-                "engineId": "Trivy",
-                "ruleId": vuln["VulnerabilityID"],
-                "type": "VULNERABILITY",
-                "severity": TRIVY_SONARQUBE_SEVERITY[vuln["Severity"]],
-                "primaryLocation": {
-                    "message": vuln["Description"],
-                    "filePath": file_path or vuln["Target"],
-                },
-            }
-        )
-
-    return issues
+    return [
+        {
+            "engineId": "Trivy",
+            "ruleId": vuln["VulnerabilityID"],
+            "type": "VULNERABILITY",
+            "severity": TRIVY_SONARQUBE_SEVERITY[vuln["Severity"]],
+            "primaryLocation": {
+                "message": vuln["Description"],
+                "filePath": file_path or vuln["Target"],
+            },
+        }
+        for vuln in vulnerabilities
+    ]
 
 
 def make_sonar_report(issues):
@@ -59,7 +55,7 @@ def make_sonar_report(issues):
 def main(args):
     fname = args[1]
     if not os.path.exists(fname):
-        sys.exit("%s file not found: %s" % (LOG_PREFIX, fname))
+        sys.exit(f"{LOG_PREFIX} file not found: {fname}")
 
     arg_filePath = None
     for arg in args[2:]:
