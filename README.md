@@ -30,7 +30,7 @@ convert Trivy report to SonarQube compatible report:
 $ trivy sonarqube trivy.json > sonarqube.json
 ```
 
-redefine `filePath` field of SonarQube result. For example, if you scan Dockerfile with `trivy image` command, `filePath` field will contain url of docker image instead of file name. As result, SonarQube will skip this report. `--filePath` option allows you to set Dockefile name:
+redefine `filePath` field of SonarQube result. For example, if you scan Dockerfile with `trivy image` command, `filePath` field will contain url of docker image instead of file name. As result, SonarQube will skip this report, because docker image url is not a source file in terms of SonarQube. `--filePath` option allows you to set Dockefile name:
 ```
 $ trivy sonarqube trivy.json -- filePath=Dockerfile > sonarqube.json
 ```
@@ -46,7 +46,7 @@ scan-deps:
     name: aquasec/trivy
     entrypoint: [""]
   before_script:
-    - apk add python3
+    - apk add --no-cache python3
     - trivy plugin install github.com/umax/trivy-plugin-sonarqube
   script:
     - trivy fs
@@ -60,7 +60,7 @@ scan-deps:
   artifacts:
     paths:
       - trivy-deps-report.json
-      - sonarqube-deps-report.json
+      - sonar-deps-report.json
 
 scan-code:
   stage: scan
@@ -68,5 +68,5 @@ scan-code:
   needs:
     - scan-deps
   script:
-    - sonar-scanner -D sonar.externalIssuesReportPaths="sonarqube-deps-report.json" ...
+    - sonar-scanner -D sonar.externalIssuesReportPaths="sonar-deps-report.json" ...
 ```
