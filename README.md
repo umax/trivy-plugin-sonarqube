@@ -54,9 +54,9 @@ scan-deps:
       --vuln-type=library
       --exit-code=0
       --format=json
-      --output=trivy-report.json
+      --output=trivy-deps-report.json
       .
-    - trivy sonarqube trivy-report.json > sonarqube-report.json
+    - trivy sonarqube trivy-deps-report.json > sonar-deps-report.json
   artifacts:
     paths:
       - trivy-deps-report.json
