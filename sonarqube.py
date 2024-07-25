@@ -52,7 +52,7 @@ def make_sonar_issues(vulnerabilities, file_path=None):
         res["issues"].append({
             "ruleId": vuln["VulnerabilityID"],
             "primaryLocation": {
-                "message": f"{vuln["Description"]} Details: {vuln["PrimaryURL"]}",
+                "message": f"{vuln['Description']} Details: {vuln['PrimaryURL']}",
                 "filePath": file_path or vuln["Target"],
             }
         })
