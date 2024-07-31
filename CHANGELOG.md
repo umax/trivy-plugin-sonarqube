@@ -1,3 +1,8 @@
+## v0.3.1 (2024-07-31)
+
+- Update plugin meta info.
+
+
 ## v0.3.0 (2024-07-29)
 
 - Migrate to a new [generic issues format](https://docs.sonarsource.com/sonarqube/latest/analyzing-source-code/importing-external-issues/generic-issue-import-format/).
