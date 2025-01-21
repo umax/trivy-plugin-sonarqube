@@ -6,11 +6,11 @@ import sys
 
 LOG_PREFIX = "[trivy][plugins][sonarqube]"
 TRIVY_SONARQUBE_SEVERITY = {
-    "UNKNOWN": "LOW",
+    "UNKNOWN": "INFO",
     "LOW": "LOW",
-    "MEDIUM": "LOW",
-    "HIGH": "MEDIUM",
-    "CRITICAL": "HIGH",
+    "MEDIUM": "MEDIUM",
+    "HIGH": "HIGH",
+    "CRITICAL": "BLOCKER",
 }
 
 
