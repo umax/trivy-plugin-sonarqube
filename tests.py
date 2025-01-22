@@ -116,7 +116,7 @@ class TestMakeSonarIssues(unittest.TestCase):
                     'cleanCodeAttribute': 'LOGICAL',
                     'impacts': [{
                          'softwareQuality': 'SECURITY',
-                         'severity': 'HIGH'
+                         'severity': 'BLOCKER'
                     }]
                 }
             ],
@@ -176,7 +176,7 @@ class TestMakeSonarIssues(unittest.TestCase):
                     'cleanCodeAttribute': 'LOGICAL',
                     'impacts': [{
                          'softwareQuality': 'SECURITY',
-                         'severity': 'HIGH'
+                         'severity': 'BLOCKER'
                     }]
                 }
             ],
