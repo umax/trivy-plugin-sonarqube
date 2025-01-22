@@ -1,3 +1,8 @@
+## v0.3.2 (2025-01-22)
+
+- Update severity mapping.
+
+
 ## v0.3.1 (2024-07-31)
 
 - Update plugin meta info.
